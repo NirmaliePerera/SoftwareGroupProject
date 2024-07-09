@@ -6,40 +6,56 @@
     <title>Welcome</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f3f4f6;
-        }
         .welcome-container {
             text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
         }
         .welcome-image {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
+            width: 50%; /* Adjust the width as needed */
+            max-width: 400px; /* Maximum width to ensure it doesn't get too large */
+            height: auto; /* Maintain aspect ratio */
+            margin: 20px 0; /* Add some space around the image */
+        }
+        .btn-custom {
+            background-color: #007bff; /* Primary blue color */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3; /* Darker blue for hover effect */
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="welcome-container">
+        <div class="bg-white shadow-sm rounded-lg p-6">
+            <h1 class="display-4 text-gray-900">{{ __("WELCOME!") }}</h1>
+        </div>
+
         <img src="{{ asset('img/welcome_image.png') }}" alt="Welcome Image" class="welcome-image">
+
         @if (Route::has('login'))
-            <nav class="flex justify-center">
+            <nav class="mt-4">
                 @auth
                     <a
                         href="{{ url('/dashboard') }}"
-                        class="rounded-md px-5 py-3 bg-blue-600 text-white ring-1 ring-transparent transition hover:bg-blue-700 focus:outline-none focus-visible:ring-blue-800 dark:bg-blue-800 dark:hover:bg-blue-900 dark:focus-visible:ring-blue-900"
+                        class="btn-custom"
                     >
                         Dashboard
                     </a>
                 @else
                     <a
                         href="{{ route('login') }}"
-                        class="rounded-md px-5 py-3 bg-blue-600 text-white ring-1 ring-transparent transition hover:bg-blue-700 focus:outline-none focus-visible:ring-blue-800 dark:bg-blue-800 dark:hover:bg-blue-900 dark:focus-visible:ring-blue-900"
+                        class="btn-custom"
                     >
                         Log in
                     </a>
@@ -47,5 +63,9 @@
             </nav>
         @endif
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

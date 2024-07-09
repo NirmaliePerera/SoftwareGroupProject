@@ -16,7 +16,7 @@ class Customer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->usertype != 'customer')   //Addedp
+        if(Auth::user()->usertype != 'customer')   //Added
         {
             return redirect('/homepage');
         }
