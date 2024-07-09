@@ -8,6 +8,7 @@ Use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Mail; 
 
 
@@ -39,9 +40,7 @@ Route::middleware(['auth', 'admin'])->group(function (){    //'admin' from alias
     Route::patch('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('admin.profile.destroy');
 
-    //register routes
-    Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    
     
     // Employee management routes (accessible only by admins)
     /**get for retrieving, post for storing, put for updating */
@@ -75,14 +74,6 @@ Route::middleware(['auth', 'employee'])->group(function () {    //'employee' fro
     Route::patch('/employee/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/employee/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    //product routes
-    Route::get ('/product',[ProductController::class,'index'])->name('product.index');/*path where the view file is located*/
-    Route::get ('/product/create',[ProductController::class,'create'])->name('product.create');
-    Route::post ('/product',[ProductController::class,'store'])->name('product.store');
-    Route::get ('/product/{product}/edit',[ProductController::class,'edit'])->name('product.edit'); //edit is the fuction
-    Route::put ('/product/{product}/update',[ProductController::class,'update'])->name('product.update'); 
-    Route::delete ('/product/{product}/delete',[ProductController::class,'delete'])->name('product.delete'); 
-
 });
 
 //Customer routes
@@ -95,18 +86,32 @@ Route::middleware(['auth', 'customer'])->group(function () {    //'customer' fro
     Route::get('/customer/profile', [CustomerController::class, 'profile'])->name('customer.profile');
     Route::post('/customer/update-profile', [CustomerController::class, 'updateProfile'])->name('customer.updateProfile');
     Route::delete('/customer/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //appointment routes
+    Route::get('appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
+    Route::post('appointments', [AppointmentController::class, 'store'])->name('appointments.store');
+});
+
+// admin and customer middleware
+Route::middleware(['auth', 'admin_or_employee'])->group(function () {
+    //product routes
+    Route::get ('/product',[ProductController::class,'index'])->name('product.index');/*path where the view file is located*/
+    Route::get ('/product/create',[ProductController::class,'create'])->name('product.create');
+    Route::post ('/product',[ProductController::class,'store'])->name('product.store');
+    Route::get ('/product/{product}/edit',[ProductController::class,'edit'])->name('product.edit'); //edit is the fuction
+    Route::put ('/product/{product}/update',[ProductController::class,'update'])->name('product.update'); 
+    Route::delete ('/product/{product}/delete',[ProductController::class,'delete'])->name('product.delete');
+    
+    //appointment routes
+    Route::get('appointments', [AppointmentController::class, 'index'])->name('appointments.index');
+    Route::get('appointments/{appointment}/edit', [AppointmentController::class, 'edit'])->name('appointments.edit');
+    Route::put('appointments/{appointment}', [AppointmentController::class, 'update'])->name('appointments.update');
+    Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
+
 });
 
 // Publicly accessible routes
 Route::get('/homepage', [CustomerController::class, 'index'])->name('customer.index');
      
-use App\Http\Controllers\AppointmentController;
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('appointments', [AppointmentController::class, 'index'])->name('appointments.index');
-    Route::get('appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
-    Route::post('appointments', [AppointmentController::class, 'store'])->name('appointments.store');
-    Route::get('appointments/{appointment}/edit', [AppointmentController::class, 'edit'])->name('appointments.edit');
-    Route::put('appointments/{appointment}', [AppointmentController::class, 'update'])->name('appointments.update');
-    Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
-});
+
