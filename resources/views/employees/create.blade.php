@@ -120,16 +120,17 @@
 
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label for="photo" class="form-label">Photo </label>
-                    <div class="avatar-upload">
-                        <div>
-                            <input type="file" id="imageUpload" name="photo" accept=".png, .jpg, .jpeg" />
-                            <label for="imageUpload"></label>
-                        </div>
-                        <div class="avatar-preview">
+                    <label for="image" class="form-label">Photo </label>
+                    <!--<div class="avatar-upload">-->
+                        
+                            <input type="file" class="form-control" name="image"/>
+                          <!--  <label for="imageUpload"></label>-->
+                        
+                        <!--<div class="avatar-preview">
                             <div id="imagePreview" style="@if (isset($edit->id) && $edit->photo != '') background-image:url('{{ url('/') }}/uploads/{{ $edit->photo }}'); @else background-image: url('{{ url('/img/avatar.png') }}'); @endif"></div>
                         </div>
-                    </div>
+                    </div>-->
+                    
                     @error('photo')
                     <div class="text-danger">{{ $message }}</div>
                     @enderror
@@ -143,7 +144,11 @@
             </div>
         </form>
     </div>
-    @push('js')
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         function previewImage(input){
             if (input.files && input.files[0]){
@@ -158,12 +163,12 @@
         }
 
         // Add an event listener to the file input to call the previewImage function
-    $(document).ready(function() {
+    /*$(document).ready(function() {
         $("#imageUpload").change(function() {
             previewImage(this);
         });
-    });
+    });*/
     </script>
-    @endpush
+   
 </body>
 </html>

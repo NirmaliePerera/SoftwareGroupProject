@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->enum('job_type', ['office_employee', 'site_employee']);
             $table->date('joined_date');
-            $table->string('photo')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
