@@ -8,7 +8,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <style>
         body {
-            background-color:;
+            background-color: rgb(255, 226, 249);
         }
         .header {
             background-color: #6f42c1;
@@ -49,11 +49,11 @@
             <div class="alert alert-success">
                 {{session('success')}} <!-- 'success' from EmployeeController-->
             </div>
-        @endif()
+        @endif
     </div>
     <div>
         <div class="mb-3">
-           <a href="{{route('employee.create')}}" class="btn btn-primary">Add a new employee</a> 
+           <a href="{{route('admin.employee.create')}}" class="btn btn-primary">Add a new employee</a> 
         </div>
         
         <div class="table-responsive">
@@ -84,16 +84,16 @@
                             <td>{{$employee->address}}</td>
                             <td>{{$employee->email}}</td>
                             <td>{{$employee->joined_date}}</td>
-                            <td>{{$employee->photo}}</td>
+                            <td>{{$employee->image}}</td>
                             <td>                           <!--This $employee is passed to this 'employee' from route {employee},, "['employee' => $employee]" array -->
-                                <a href="{{route('employee.edit', ['employee' => $employee])}}" class="btn btn-edit btn-sm">Edit</a>
+                                <a href="{{route('admin.employee.edit', ['employee' => $employee])}}" class="btn btn-edit btn-sm">Edit</a>
                             </td><!-- loop through each iteam and put edit link-->
                             
                             <!--To delete data, use form-->
                             <td> <!--In Laravel, do not create a link directly in action, instead use a route name to generate a link-->
-                                <form method="post" action="{{route('employee.destroy', ['employee' => $employee])}}"> <!-- say what employee you want to delete-->
+                                <form method="post" action="{{route('admin.employee.destroy', ['employee' => $employee])}}" onsubmit="return confirmDeletion()"> <!-- say what employee you want to delete-->
                                     @csrf
-                                    @method('delete')
+                                    @method('DELETE')
                                     <input type="submit" value="Delete" class="btn btn-delete btn-sm">
                                 </form>
                             </td>
@@ -102,7 +102,14 @@
                 </tbody>
             </table>
         </div>
-        
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function confirmDeletion() {
+        return confirm('Are you sure you want to delete this employee?');
+    }
+    </script>
 </body>
 </html>

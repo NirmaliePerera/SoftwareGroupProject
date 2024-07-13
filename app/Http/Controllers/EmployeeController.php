@@ -59,7 +59,7 @@ class EmployeeController extends Controller
         $newEmployee->save();   //storing data into db
 
         //when adding is finished
-        return redirect(route('employee.index'))->with('success','Employee details added successfully');
+        return redirect(route('admin.employee.index'))->with('success','Employee details added successfully');
         //with-> "message"
     
     }
@@ -116,13 +116,13 @@ class EmployeeController extends Controller
         $employee->save();
 
         //when update is finished
-        return redirect(route('employee.index'))->with('success','Details updated successfully');
+        return redirect(route('admin.employee.index'))->with('success','Details updated successfully');
         //with-> "message"
     } 
 
     public function destroy(Employee $employee){
         $employee->delete();
-        return redirect(route('employee.index'))->with('success','Employee removed successfully');
+        return redirect(route('admin.employee.index'))->with('success','Employee removed successfully');
 
     }
     //function to register employee
