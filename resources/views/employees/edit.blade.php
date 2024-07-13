@@ -61,7 +61,7 @@
             </ul>
         </div>
     @endif
-    <form method="post" action="{{ route('employee.update', ['employee' => $employee]) }}">
+    <form method="post" action="{{ route('admin.employee.update', ['employee' => $employee]) }}">
         @csrf
         @method('put')
 

@@ -17,6 +17,11 @@
                         </a>
                     </li>
                     <li class="mb-2">
+                        <a href="{{ route('admin.employee.index') }}" class="block p-2 bg-purple-800 hover:bg-purple-900 rounded">
+                            Employee Details
+                        </a>
+                    </li>
+                    <li class="mb-2">
                         <a href="{{ route('product.index') }}" class="block p-2 bg-purple-800 hover:bg-purple-900 rounded">
                             Products
                         </a>
@@ -24,6 +29,13 @@
                     <li class="mb-2">
                         <a href="{{ route('appointments.index') }}" class="block p-2 bg-purple-800 hover:bg-purple-900 rounded">
                             Appointments
+                        </a>
+                    </li>
+                    
+                    </li>
+                    <li class="mb-2">
+                        <a href="{{ route('profile.edit') }}" class="block p-2 bg-purple-800 hover:bg-purple-900 rounded">
+                            Profile
                         </a>
                     </li>
                 </ul>
