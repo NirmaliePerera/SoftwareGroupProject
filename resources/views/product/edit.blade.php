@@ -107,16 +107,8 @@
             </div>
             <div class="form-group col-md-12 mb-5">
                 <label for="">Product Image:</label>
-                <div class="product-upload">
-                    <div>
-                        <input type='file' id="imageUpload" name="photo" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" class="form-control-file"/>
-                        <label for="imageUpload"></label>
-                    </div>
-                    <div class="product-preview">
-                        <div id="imagePreview" style="@if ($product->photo != '') background-image:url('{{ url('/') }}/uploads/{{ $product->photo }}')@else background-image: url('{{ url('/img/product.png') }}') @endif;">
-                        </div>
-                    </div>
-                </div>
+                <input type="file" name="image" class="form-control" />
+                
                 @error('photo')
                     <div class="text-danger">{{ $message }}</div>
                 @enderror

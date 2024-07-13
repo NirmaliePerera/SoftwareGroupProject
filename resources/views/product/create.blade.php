@@ -101,10 +101,8 @@
 
             <div class="form-group">
                 <label for="image">Product Image:</label>
-                <input type="file" class="form-control-file" id="imageUpload" name="image" accept=".png, .jpg, .jpeg" onchange="previewImage(this)">
-                <div class="mt-3">
-                    <div id="imagePreview" class="border" style="@if (isset($edit->id) && $edit->photo != '') background-image:url('{{ url('/') }}/uploads/{{ $edit->photo }}') @else background-image: url('{{ url('/img/product.png') }}') @endif;"></div>
-                </div>
+                <input type="file" class="form-control" name="image">
+               
                 @error('photo')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror

@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function index(){
-        $products = Product:: all(); //$products is an variable
-        return view ('product.index',['products'=> $products]);
+        $products = Product::all();
+        return view('product.index', ['products' => $products]);
     }
+
     public function create(){
-        return view ('product.create');
+        return view('product.create');
     }
+
     public function store(Request $request)
     {
-        $data = $request-> validate([
+        $data = $request->validate([
             'name' => 'required',
             'category' => 'required',
             'color' => 'required',
@@ -24,14 +27,17 @@ class ProductController extends Controller
             'quantity' => 'required|numeric',
             'initial_price' => 'required|numeric',
             'last_rented_price' => 'required|numeric',
-            'description'=> 'nullable',
+            'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        
-        $imagePath = null;
         if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('images', 'public');
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $path = 'uploads/category/';
+            $file->move(public_path($path), $filename);
+            $data['image'] = $path . $filename;
         }
 
         $newProduct = new Product();
@@ -44,20 +50,17 @@ class ProductController extends Controller
         $newProduct->last_rented_price = $data['last_rented_price'];
         $newProduct->description = $data['description'];
         $newProduct->image = $data['image'] ?? null;
-    
-        $newProduct->save(); //storing data into db
-        
-        return redirect (route('product.index')); //after data is stored redirect into index page
+        $newProduct->save();
+
+        return redirect()->route('product.index')->with('success', 'Product created successfully.');
     }
-    
-    public function edit(Product $product){ //Product is the model and $product is the variable
 
-        return view ('product.edit' , ['product' => $product]);
-
+    public function edit(Product $product){
+        return view('product.edit', ['product' => $product]);
     }
 
     public function update(Product $product, Request $request){
-        $data = $request-> validate([
+        $data = $request->validate([
             'name' => 'required',
             'category' => 'required',
             'color' => 'required',
@@ -65,7 +68,7 @@ class ProductController extends Controller
             'quantity' => 'required|numeric',
             'initial_price' => 'required|numeric',
             'last_rented_price' => 'required|numeric',
-            'description'=> 'nullable',
+            'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -73,11 +76,14 @@ class ProductController extends Controller
             if ($product->image) {
                 Storage::delete('public/' . $product->image);
             }
-            $data['image'] = $request->file('image')->store('images', 'public');
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $path = 'uploads/category/';
+            $file->move(public_path($path), $filename);
+            $data['image'] = $path . $filename;
         }
 
-        
-        $product = new Product();
         $product->name = $data['name'];
         $product->category = $data['category'];
         $product->color = $data['color'];
@@ -86,16 +92,19 @@ class ProductController extends Controller
         $product->initial_price = $data['initial_price'];
         $product->last_rented_price = $data['last_rented_price'];
         $product->description = $data['description'];
-        $product->image = $data['image'] ?? null;
+        $product->image = $data['image'] ?? $product->image;
         $product->save();
 
-        return redirect(route('product.index'))->with('sucess','Product updated successfully.');
-
+        return redirect()->route('product.index')->with('success', 'Product updated successfully.');
     }
 
-    public function delete(Product $product){ //receive product from the route
-        $product-> delete();
+    public function delete(Product $product){
+        if ($product->image) {
+            Storage::delete('public/' . $product->image);
+        }
+        $product->delete();
 
-        return redirect(route('product.index'))->with('sucess','Product deleted successfully.');
+        return redirect()->route('product.index')->with('success', 'Product deleted successfully.');
     }
 }
+

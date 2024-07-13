@@ -89,11 +89,8 @@
                         <td>{{ $product->initial_price }}</td>
                         <td>{{ $product->last_rented_price }}</td>
                         <td>{{ $product->description }}</td>
-                        <td>
-                            <div class="showPhoto">
-                                <div id="imagePreview" style="@if ($product->image != '') background-image:url('{{ url('/') }}/uploads/{{ $product->image }}')@else background-image: url('{{ url('/img/product.png') }}') @endif;">
-                                </div>
-                            </div>
+                        <td>            
+                            <img src="{{ asset($product->image) }}" style="width: 80px; height:100px;" alt="Img" />
                         </td>
                         <td>
                             <a href="{{ route('product.edit', ['product' => $product]) }}" class="btn btn-warning btn-sm">Edit</a>

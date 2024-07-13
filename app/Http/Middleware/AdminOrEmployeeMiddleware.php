@@ -5,9 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Auth;    //Added
+use Illuminate\Support\Facades\Auth;
 
-class Customer
+class AdminOrEmployeeMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,10 @@ class Customer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->usertype != 'customer')   //Added
-        {
-            return redirect('/homepage');
+        if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'employee')) {
+            return $next($request);
         }
-        return $next($request);
+
+        return redirect('/welcome')->with('error', 'You do not have access to this section');
     }
 }
