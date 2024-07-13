@@ -18,6 +18,6 @@ class Employee extends Model
         'address',
         'email',
         'joineddate',
-        'photo',
+        'image',
     ];
 }
