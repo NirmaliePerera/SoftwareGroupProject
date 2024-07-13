@@ -29,7 +29,7 @@ class EmployeeController extends Controller
             'address' => 'required|string|max:255|unique:employees',
             'email' => 'required|string|email|max:255|unique:employees',
             'joined_date' => 'required|date|before_or_equal:today',
-            'photo' => 'mimes:png,jpeg,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ], [
             //Message
             'birthday.before' => 'The employee must be at least 18 years old.',
@@ -38,6 +38,14 @@ class EmployeeController extends Controller
             'joined_date.before_or_equal' => 'The joined date must be today or a date before today.'
         ]);
 
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $path = 'uploads/category/';
+            $file->move(public_path($path), $filename);
+            $data['image'] = $path . $filename;
+        }
         $newEmployee = new Employee();
         $newEmployee->emp_name = $data['emp_name'];
         $newEmployee->birthday = $data['birthday'];
@@ -46,21 +54,14 @@ class EmployeeController extends Controller
         $newEmployee->address = $data['address'];
         $newEmployee->email = $data['email'];
         $newEmployee->joined_date = $data['joined_date'];
-
-        // Handle the file upload
-        if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $fileName = time() . '_' . $photo->getClientOriginalName();
-            $photo->storeAs('public/photos', $fileName);
-            $newEmployee->photo = 'photos/' . $fileName; // Store the path in the database
-        }
+        $newEmployee->image = $data['image'] ?? null;
 
         $newEmployee->save();   //storing data into db
 
         //when adding is finished
         return redirect(route('employee.index'))->with('success','Employee details added successfully');
         //with-> "message"
-        //return redirect(route('employee.index'));   //after data is stored redirect into index page
+    
     }
 
             //this 'Employee' is module, '$employee' varialble employee from route
@@ -76,41 +77,41 @@ class EmployeeController extends Controller
             'emp_name' => 'required|string|max:255',
             'birthday' => ['required', 'date', 'before:18 years ago'],
             'gender' => 'required|in:male,female',
-            'phone' => 'required|string|digits:10|unique:employees',
-            'address' => 'required|string|max:255|unique:employees',
+            'phone' => 'required|string|digits:10',
+            'address' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'joined_date' => 'required|date|before_or_equal:today',
-            'photo' => 'nullable|mimes:png,jpeg,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ], [
                 //Message
                 'birthday.before' => 'The employee must be at least 18 years old.',
-                'phone.unique' => 'The phone number has already been taken.',
-                'address.unique' => 'The address has already been taken.',
                 'joined_date.before_or_equal' => 'The joined date must be today or a date before today.'
             ]);
             //pass $data into Employee module from the form
        
-        $employee->emp_name = $data['emp_name'];
-        $employee->birthday = $data['birthday'];
-        $employee->gender = $data['gender'];
-        $employee->phone = $data['phone'];
-        $employee->address = $data['address'];
-        $employee->email = $data['email'];
-        $employee->joined_date = $data['joined_date'];
+            if ($request->hasFile('image')) {
+                if ($employee->image) {
+                    Storage::delete('public/' . $employee->image);
+                }
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $path = 'uploads/category/';
+                $file->move(public_path($path), $filename);
+                $data['image'] = $path . $filename;
+            }
+
+            $employee->emp_name = $data['emp_name'];
+            $employee->birthday = $data['birthday'];
+            $employee->gender = $data['gender'];
+            $employee->phone = $data['phone'];
+            $employee->address = $data['address'];
+            $employee->email = $data['email'];
+            $employee->joined_date = $data['joined_date'];
+            $employee->image = $data['image'] ?? $employee->image;
 
         // Handle the file upload
-    if ($request->hasFile('photo')) {
-        // Delete the old photo if it exists
-        if ($employee->photo) {
-            Storage::delete('public/' . $employee->photo);
-        }
-
-        // Store the new photo
-        $photo = $request->file('photo');
-        $fileName = time() . '_' . $photo->getClientOriginalName();
-        $photo->storeAs('public/photos', $fileName);
-        $employee->photo = 'photos/' . $fileName; // Update the path in the database
-    }
+    
     
         $employee->save();
 

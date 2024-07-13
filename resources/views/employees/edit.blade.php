@@ -50,7 +50,7 @@
     <div class="header">
         <h1 class="mb-4">Edit Employee Details</h1>
     </div>
-    @section('main.content')
+    
     <div class="container mt-5">
     @if($errors->any()) <!--if there is any error-->
         <div class="alert alert-danger">
@@ -116,7 +116,7 @@
 
         <div class="row mb-3">
             <div class="col-md-6">
-                <label for="photo" class="form-label">Photo </label>
+                <label for="image" class="form-label">Photo </label>
                 <div class="avatar-upload">
                     <div>
                         <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" onchange="previewImage(this)"/>
@@ -141,9 +141,8 @@
                 {{ __('Save Changes') }}
             </button>
         </div>
-        
     </form>
-    @endsection
+    
     @push('js')
     <script type="text/javascript">
         function previewImage(input){
