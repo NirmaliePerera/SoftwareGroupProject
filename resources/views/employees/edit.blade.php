@@ -25,12 +25,32 @@
             border-color: #6f42c1; /* Purple color for the border */
             box-shadow: 0 0 0 0.25rem rgba(209, 59, 255, 0.692); /* Purple shadow */
         }
+        .avatar-upload {
+        position: relative;
+        max-width: 205px;
+        }
+        .avatar-upload .avatar-preview {
+            width: 67%;
+            height: 147px;
+            position: relative;
+            border-radius: 3%;
+            border: 6px solid #F8F8F8;
+        }
+        .avatar-upload .avatar-preview>div {
+            width: 100%;
+            height: 100%;
+            border-radius: 3%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1 class="mb-4">Edit Employee Details</h1>
     </div>
+    
     <div class="container mt-5">
     @if($errors->any()) <!--if there is any error-->
         <div class="alert alert-danger">
@@ -41,7 +61,7 @@
             </ul>
         </div>
     @endif
-    <form method="post" action="{{ route('employee.update', ['employee' => $employee]) }}">
+    <form method="post" action="{{ route('admin.employee.update', ['employee' => $employee]) }}">
         @csrf
         @method('put')
 
@@ -93,6 +113,24 @@
                 <input type="date" name="joined_date" class="form-control" value="{{$employee->joined_date}}">
             </div>
         </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="image" class="form-label">Photo </label>
+                <div class="avatar-upload">
+                    <div>
+                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" onchange="previewImage(this)"/>
+                        <label for="imageUpload"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <div id="imagePreview" style="@if (isset($edit->id) && $edit->photo != '') background-image:url('{{ url('/') }}/uploads/{{ $edit->photo }}')@else background-image: url('{{ url('/img/avatar.png') }}') @endif"></div>
+                    </div>
+                </div>
+                @error('photo')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
         
         <div>
             <p>Check all the details before saving changes.</p>
@@ -103,7 +141,29 @@
                 {{ __('Save Changes') }}
             </button>
         </div>
-        
     </form>
+    
+    @push('js')
+    <script type="text/javascript">
+        function previewImage(input){
+            if (input.files && input.files[0]){
+                var reader = new FileReader();
+                reader.onReader = function(e) {
+                    $("#imagePreview").css('background-image', 'url(' + e.target.result + ')');
+                    $("#imagePreview").hide();
+                    $("#imagePreview").fadeIn(700);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Add an event listener to the file input to call the previewImage function
+    $(document).ready(function() {
+        $("#imageUpload").change(function() {
+            previewImage(this);
+        });
+    });
+    </script>
+    @endpush
 </body>
 </html>

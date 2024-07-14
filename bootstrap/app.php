@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\Admin::class,
             'employee' => \App\Http\Middleware\Employee::class,
             'customer' => \App\Http\Middleware\Customer::class,
+            'admin_or_employee' => \App\Http\Middleware\AdminOrEmployeeMiddleware::class,
             //add other middlwares here as well (register)
 
         ]);
