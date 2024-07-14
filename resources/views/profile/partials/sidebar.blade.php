@@ -18,6 +18,9 @@
                 <a href="{{ route('appointments.index') }}" class="block p-2 rounded hover:bg-purple-800">Appointments</a>
             </li>
             <li class="mb-4">
+                <a href="{{ route('admin.dashboard') }}" class="block p-2 rounded hover:bg-purple-800">Dashboard</a>
+            </li>
+            <li class="mb-4">
                 <a href="{{ route('profile.edit') }}" class="block p-2 rounded hover:bg-purple-800">Profile</a>
             </li>
             <li class="mb-4">

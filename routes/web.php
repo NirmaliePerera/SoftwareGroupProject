@@ -13,6 +13,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Mail; 
 use App\Http\Controllers\BotController;
+use App\Http\Controllers\InvoiceController;
 
 
 Route::get('/', function () {
@@ -78,8 +79,8 @@ Route::middleware(['admin_or_employee'])->group(function () {
     Route::put('appointments/{appointment}', [AppointmentController::class, 'update'])->name('appointments.update');
     Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
 
-  //Bill routes
-  
+    //invoice routes
+    Route::resource ('invoice',InvoiceController::class);
 });
 
 //Customer routes
