@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('category');
             $table->string('color');
             $table->string('size');
-            $table->integer('quantity');
+            $table->integer('quantity')->default(0);
             $table->decimal('initial_price');
-            $table->decimal('last_rented_price');
+            $table->decimal('last_rented_price')->default(0.00);
             $table->text('description');
             $table->timestamps();
         });
