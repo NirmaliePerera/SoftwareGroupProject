@@ -1,0 +1,11 @@
+/* custom.css */
+
+/* Light purple background for light mode */
+.bg-light-purple {
+    background-color: #E6E6FA; /* light purple */
+}
+
+/* Dark purple background for dark mode */
+.bg-dark-purple {
+    background-color: #6A0DAD; /* dark purple */
+}
