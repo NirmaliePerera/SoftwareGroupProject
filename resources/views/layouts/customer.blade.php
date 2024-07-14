@@ -31,7 +31,7 @@
         <div class="ml-auto">
             @guest
                 <a href="{{ route('login') }}" class="btn btn-custom">Sign In</a>
-                <a href="{{ route('register') }}" class="btn btn-custom">Sign Up</a>
+                <a href="{{ route('register.customer') }}" class="btn btn-custom">Sign Up</a>
             @else
                 <a href="{{ route('customer.profile') }}" class="btn btn-custom">Profile</a>
                 <a href="{{ route('logout') }}" class="btn btn-custom"

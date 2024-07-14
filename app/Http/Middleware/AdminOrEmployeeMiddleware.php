@@ -16,10 +16,18 @@ class AdminOrEmployeeMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'employee')) {
-            return $next($request);
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user->usertype == 'admin' || $user->usertype == 'employee') {
+                return $next($request);
+            }
+            // Add debug information
+            \Log::info('User role does not match admin or employee', ['user_id' => $user->id, 'role' => $user->role]);
+        } else {
+            // Add debug information
+            \Log::info('User is not authenticated');
         }
 
-        return redirect('/welcome')->with('error', 'You do not have access to this section');
+        return redirect('/homepage')->with('error', 'You do not have access to this section');
     }
 }

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\EmployeeRegisterController;
+use App\Http\Controllers\Auth\CustomerRegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 Use App\Http\Controllers\AdminController;
@@ -37,9 +39,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->group(function (){    //'admin' from alias in app.php
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
 
-
     //route buttons for exclusive for admin 
-    Route::get('/employee/register', [EmployeeController::class, 'register'])->name('auth.register');        
+    //Route::get('/employee/register', [EmployeeController::class, 'register'])->name('auth.register');        
     Route::get('/register/employee', [EmployeeRegisterController::class, 'showRegistrationForm'])->name('register.employee');
     Route::post('/register/employee', [EmployeeRegisterController::class, 'register']);
 
@@ -51,15 +52,11 @@ Route::middleware(['auth', 'admin'])->group(function (){    //'admin' from alias
     Route::get('/admin/employee/{employee}/edit', [EmployeeController::class, 'edit'])->name('admin.employee.edit');
     Route::put('/admin/employee/{employee}/update', [EmployeeController::class, 'update'])->name('admin.employee.update');
     Route::delete('/admin/employee/{employee}/destroy', [EmployeeController::class, 'destroy'])->name('admin.employee.destroy');
- 
-    
-    
 });
 
 //Employee routes
 Route::middleware(['auth', 'employee'])->group(function () {    //'employee' from alias in app.php
     Route::get('/employee/dashboard', [EmployeeController::class, 'EmployeeDashboard'])->name('employee.dashboard');
-
 
 });
 
@@ -80,16 +77,13 @@ Route::middleware(['admin_or_employee'])->group(function () {
     Route::put('appointments/{appointment}', [AppointmentController::class, 'update'])->name('appointments.update');
     Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
 
-    
+  //Bill routes
+  
 });
 
 //Customer routes
 Route::middleware(['auth', 'customer'])->group(function () {    //'customer' from alias in app.php
     Route::get('/customer', [CustomerController::class, 'customerdashboard'])->name('customer.dashboard');
-
-    //Customer sign up
-    Route::get('/register/customer', [CustomerRegisterController::class, 'showRegistrationForm'])->name('register.customer');
-    Route::post('/register/customer', [CustomerRegisterController::class, 'register']);
 
     // Profile routes for customers
     //need a Home for header
@@ -100,8 +94,17 @@ Route::middleware(['auth', 'customer'])->group(function () {    //'customer' fro
     //appointment routes
     Route::get('appointments/create', [AppointmentController::class, 'create'])->name('appointments.create');
     Route::post('appointments', [AppointmentController::class, 'store'])->name('appointments.store');
-
 });
 
-// Publicly accessible routes
+/* Publicly accessible routes*/
+
 Route::get('/homepage', [CustomerController::class, 'index'])->name('customer.index');
+
+//Customer sign up
+Route::get('/register/customer', [CustomerRegisterController::class, 'showRegistrationForm'])->name('register.customer');
+Route::post('/register/customer', [CustomerRegisterController::class, 'register']);
+});
+
+
+    
+

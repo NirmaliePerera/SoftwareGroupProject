@@ -60,6 +60,12 @@
                                 Products
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('profile.edit') }}">
+                                <span data-feather="profile"></span>
+                                Profile
+                            </a>
+                        </li>
                         <!-- Add more navigation items here -->
                     </ul>
                 </div>

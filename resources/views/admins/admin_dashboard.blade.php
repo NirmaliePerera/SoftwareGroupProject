@@ -19,8 +19,8 @@
             <div class="bg-white rounded shadow p-4">
                 <h3 class="text-lg font-semibold mb-4">Dashboard Content</h3>
                 <p>Welcome to the Admin Dashboard!</p>
-                <!-- Add your dashboard content here -->
-=======
+   
+   <!-- Add your dashboard content here -->             
     <div class="flex">
         <!-- Side Navigation Bar -->
         <div class="w-1/4 h-screen bg-purple-700 text-white">
@@ -28,8 +28,13 @@
                 <h3 class="text-lg font-semibold">Navigation</h3>
                 <ul class="mt-4">
                     <li class="mb-2">
-                        <a href="{{ route('auth.register') }}" class="block p-2 bg-purple-800 hover:bg-purple-900 rounded">
+                        <a href="{{ route('register.employee') }}" class="block p-2 bg-purple-800 hover:bg-purple-900 rounded">
                             Employee Register
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="{{ route('admin.employee.index') }}" class="block p-2 bg-purple-800 hover:bg-purple-900 rounded">
+                            Employee Details
                         </a>
                     </li>
                     <li class="mb-2">
@@ -49,8 +54,6 @@
                     </li>
                 </ul>
             </div>
-
         </div>
-
     </div>
 </x-app-layout>
