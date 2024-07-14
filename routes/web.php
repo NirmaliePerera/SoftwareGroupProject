@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\EmployeeRegisterController;
+use App\Http\Controllers\Auth\CustomerRegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 Use App\Http\Controllers\AdminController;
@@ -38,9 +40,10 @@ Route::middleware(['auth', 'admin'])->group(function (){    //'admin' from alias
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
 
     //route buttons for exclusive for admin 
-    Route::get('/employee/register', [EmployeeController::class, 'register'])->name('auth.register');    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    
-    
+    //Route::get('/employee/register', [EmployeeController::class, 'register'])->name('auth.register');        
+    Route::get('/register/employee', [EmployeeRegisterController::class, 'showRegistrationForm'])->name('register.employee');
+    Route::post('/register/employee', [EmployeeRegisterController::class, 'register']);
+
     // Employee details management 
     /**get for retrieving, post for storing, put for updating */
     Route::get('/admin/employee', [EmployeeController::class, 'index'])->name('admin.employee.index');
@@ -95,6 +98,10 @@ Route::middleware(['auth', 'customer'])->group(function () {    //'customer' fro
 
 // Publicly accessible routes
 Route::get('/homepage', [CustomerController::class, 'index'])->name('customer.index');
+//Customer sign up
+Route::get('/register/customer', [CustomerRegisterController::class, 'showRegistrationForm'])->name('register.customer');
+Route::post('/register/customer', [CustomerRegisterController::class, 'register']);
+
 
      
  

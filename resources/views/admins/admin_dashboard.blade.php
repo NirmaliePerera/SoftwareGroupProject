@@ -12,7 +12,7 @@
                 <h3 class="text-lg font-semibold">Navigation</h3>
                 <ul class="mt-4">
                     <li class="mb-2">
-                        <a href="{{ route('auth.register') }}" class="block p-2 bg-purple-800 hover:bg-purple-900 rounded">
+                        <a href="{{ route('register.employee') }}" class="block p-2 bg-purple-800 hover:bg-purple-900 rounded">
                             Employee Register
                         </a>
                     </li>
