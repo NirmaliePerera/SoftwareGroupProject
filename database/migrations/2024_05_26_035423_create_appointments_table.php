@@ -13,10 +13,16 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('service');
-            $table->date('app_date');
-            $table->string('status');
+            $table->unsignedBigInteger('user_id');
+            $table->date('date');
+            $table->time('time');
+            $table->string('email');
+            $table->string('service')->nullable();
+            $table->text('message')->nullable();
+            $table->enum('status', ['pending', 'done'])->default('pending'); // pending, confirmed, cancelled
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

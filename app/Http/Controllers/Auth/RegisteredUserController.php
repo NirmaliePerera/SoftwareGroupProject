@@ -33,18 +33,27 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'usertype' => ['required', 'in:admin,employee'], // Add validation for usertype
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'usertype' => $request->usertype, // Save user_type
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        // Redirect based on user type
+        if ($user->usertype === 'admin') {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->usertype === 'employee') {
+            return redirect()->route('employee.dashboard');
+        } else {
+            return redirect()->route('dashboard'); // Default redirect
+        }
     }
 }
