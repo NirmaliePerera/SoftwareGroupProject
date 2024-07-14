@@ -9,7 +9,7 @@
                 <a href="{{ route('admin.dashboard') }}" class="block p-2 rounded hover:bg-purple-800">Dashboard</a>
             </li>
             <li class="mb-4">
-                <a href="{{ route('auth.register') }}" class="block p-2 rounded hover:bg-purple-800">Employee Register</a>
+                <a href="{{ route('register.employee') }}" class="block p-2 rounded hover:bg-purple-800">Employee Register</a>
             </li>
             <li class="mb-4">
                 <a href="{{ route('product.index') }}" class="block p-2 rounded hover:bg-purple-800">Products</a>

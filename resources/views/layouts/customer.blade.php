@@ -29,6 +29,7 @@
     <nav class="navbar navbar-expand-lg navbar-custom">
         <a class="navbar-brand text-white" href="#">Shirona Salon & Bridal</a>
         <div class="ml-auto">
+        <a href="{{ url('/voice-bot') }}" class="btn btn-custom">Help</a> <!-- Help button -->
             @guest
                 <a href="{{ route('login') }}" class="btn btn-custom">Sign In</a>
                 <a href="{{ route('register.customer') }}" class="btn btn-custom">Sign Up</a>
