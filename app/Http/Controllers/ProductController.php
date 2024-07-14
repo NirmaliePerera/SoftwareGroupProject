@@ -23,10 +23,10 @@ class ProductController extends Controller
             'name' => 'required',
             'category' => 'required',
             'color' => 'required',
-            'size' => 'required',
-            'quantity' => 'required|numeric',
-            'initial_price' => 'required|numeric',
-            'last_rented_price' => 'required|numeric',
+            'size' => 'required|min:0',
+            'quantity' => 'required|numeric|min:0',
+            'initial_price' => 'required|numeric|min:0',
+            'last_rented_price' => 'nullable|numeric|min:0',
             'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
@@ -64,10 +64,10 @@ class ProductController extends Controller
             'name' => 'required',
             'category' => 'required',
             'color' => 'required',
-            'size' => 'required',
-            'quantity' => 'required|numeric',
-            'initial_price' => 'required|numeric',
-            'last_rented_price' => 'required|numeric',
+            'size' => 'required|min:0',
+            'quantity' => 'required|numeric|min:0',
+            'initial_price' => 'required|numeric|min:0',
+            'last_rented_price' => 'nullable|numeric|min:0',
             'description' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
