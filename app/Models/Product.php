@@ -19,4 +19,10 @@ class Product extends Model
         'description',
         'image'
     ];
+
+    public function invoices()
+    {
+        return
+        $this->hasMany(Invoice::class);
+    }
 }
