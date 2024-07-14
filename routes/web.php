@@ -113,7 +113,7 @@ Route::post('/register/customer', [CustomerRegisterController::class, 'register'
 
 //voicebot routes
 Route::get('/voice-bot', function () {
-    return view('voice_bot');
+    return view('voiceBot.voice_bot');
 });
 
 Route::post('/voice-bot-response', [BotController::class, 'getResponse']);
