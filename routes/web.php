@@ -12,6 +12,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AppointmentController;
 use Illuminate\Support\Facades\Mail; 
+use App\Http\Controllers\BotController;
 
 
 Route::get('/', function () {
@@ -100,11 +101,20 @@ Route::middleware(['auth', 'customer'])->group(function () {    //'customer' fro
 
 Route::get('/homepage', [CustomerController::class, 'index'])->name('customer.index');
 
+
 //Customer sign up
 Route::get('/register/customer', [CustomerRegisterController::class, 'showRegistrationForm'])->name('register.customer');
 Route::post('/register/customer', [CustomerRegisterController::class, 'register']);
-});
+
 
 
     
+
+
+//voicebot routes
+Route::get('/voice-bot', function () {
+    return view('voiceBot.voice_bot');
+});
+
+Route::post('/voice-bot-response', [BotController::class, 'getResponse']);
 
