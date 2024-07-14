@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shirona Salon</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <title>@yield('title', 'Shirona Salon and Bridal')</title>
     <!--Bootstrap CSS-->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .navbar-custom {
             background-color: #c142bd;
@@ -25,14 +24,12 @@
     @yield('styles')
 </head>
 <body>
+  
     <!--Navigation bar-->
     <nav class="navbar navbar-expand-lg navbar-custom">
         <a class="navbar-brand text-white" href="#">Shirona Salon & Bridal</a>
         <div class="ml-auto">
-            @guest
-                <a href="{{ route('login') }}" class="btn btn-custom">Sign In</a>
-                <a href="{{ route('register.customer') }}" class="btn btn-custom">Sign Up</a>
-            @else
+            
             <a href="{{ route('products.list') }}" class="btn btn-custom">Products</a>    
             <a href="{{ route('collection.list') }}" class="btn btn-custom">Favourites</a>
             <a href="{{ route('appointments.create') }}" class="btn btn-custom">Schedule Appointment</a>
@@ -44,19 +41,45 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-            @endguest
+            
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container">
-        @yield('content')
-    </div>
+<div class="container mt-5">
+    
+    <p>Select your favourite designs.</p>
+    <p>Note:Only 3 designs would be allowed for trying on</p>
+        
+    @php
+    $totalQuantity = 0;
+    @endphp
+    
+    @if(session('collection'))
+    @foreach(session('collection') as $item)
+        @php
+        $totalQuantity += $item['quantity'];
+        @endphp
+    @endforeach
+    @endif
 
-    <!-- jQuery and Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    @yield('scripts')
+    <div class="col-12">
+        <div class="dropdown" >
+            <a class="btn btn-outline-dark" href="{{ url('collection-list') }}">
+               <i class="fa fa-favourite-collection" aria-hidden="true"></i> Favourites <span class="badge text-bg-danger" id="collection-quantity">{{ $totalQuantity }}</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    @if(session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div> 
+    @endif
+    @yield('content')
+</div>
+  
+@yield('scripts')
 </body>
 </html>

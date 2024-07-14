@@ -118,3 +118,7 @@ Route::get('/voice-bot', function () {
 
 Route::post('/voice-bot-response', [BotController::class, 'getResponse']);
 
+Route::get('/products-list', [ProductController::class, 'index2'])->name('products.list');  
+Route::get('/collection-list', [ProductController::class, 'productCollection'])->name('collection.list');
+Route::post('add-to-collection', [ProductController::class, 'addProductToCollection'])->name('add-product-to-favourite-collection');
+Route::delete('/remove-collection-item', [ProductController::class, 'removeItem'])->name('remove.collection.item');
