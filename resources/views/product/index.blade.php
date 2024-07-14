@@ -50,6 +50,20 @@
     <title>Product List</title>
 </head>
 <body>
+    <header class="bg-light py-3 mb-4 border-bottom">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 text-dark text-decoration-none">
+                <span class="fs-4">My Project</span>
+            </a>
+            <ul class="nav">
+                <li class="nav-item"><a href="#" class="nav-link text-dark">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-dark">Products</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-dark">Appointments</a></li>
+                <li class="nav-item"><a href="#" class="nav-link text-dark">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+    
     <div class="container mt-5">
         <h1 class="mb-4">Product</h1>
         @if (session()->has('success'))
@@ -107,6 +121,13 @@
             </tbody>
         </table>
     </div>
+
+    <footer class="bg-light py-4 mt-5 border-top">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 My Project. All rights reserved.</p>
+            <p>1234 Main St, Anytown, USA | (123) 456-7890 | info@myproject.com</p>
+        </div>
+    </footer>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

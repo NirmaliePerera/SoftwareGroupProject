@@ -77,6 +77,8 @@ Route::middleware(['admin_or_employee'])->group(function () {
     Route::put('appointments/{appointment}', [AppointmentController::class, 'update'])->name('appointments.update');
     Route::delete('/{appointment}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
 
+  //Bill routes
+  
 });
 
 //Customer routes
@@ -94,15 +96,15 @@ Route::middleware(['auth', 'customer'])->group(function () {    //'customer' fro
     Route::post('appointments', [AppointmentController::class, 'store'])->name('appointments.store');
 });
 
+/* Publicly accessible routes*/
 
-
-// Publicly accessible routes
 Route::get('/homepage', [CustomerController::class, 'index'])->name('customer.index');
+
 //Customer sign up
 Route::get('/register/customer', [CustomerRegisterController::class, 'showRegistrationForm'])->name('register.customer');
 Route::post('/register/customer', [CustomerRegisterController::class, 'register']);
+});
 
 
-     
- 
-  
+    
+
