@@ -106,5 +106,71 @@ class ProductController extends Controller
 
         return redirect()->route('product.index')->with('success', 'Product deleted successfully.');
     }
+
+    //routes for product in customer dashboard
+    public function index2()
+    {
+        $products = Product::all();
+        return view('product.products', compact('products'));
+    }
+
+    public function productCollection()
+    {
+        return view('product.collection');
+    }
+
+    public function addProductToCollection(Request $request)
+    {
+        $productId = $request->input('product_id');
+        $quantity = $request->input('quantity');
+        $collectiontItemId = $request->input('collection_item_id');
+
+        $product = Product::find($productId);
+
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        $collection = session()->get('collection', []);
+
+        if (isset($collection[$productId])) {
+            // Display a message if the product is already in the collection
+            session()->flash('message', 'Selected item is already in the collection');
+        } else {
+            // Add new item to the collection
+            $collection[$productId] = [
+                'id' => $product->id,
+                'name' => $product->name,
+                'initial_price' => $product->initial_price,
+                'description' => $product->description,
+                'quantity' => 1,
+                'image' => $product->image
+            ];
+
+        }
+
+        session()->put('collection', $collection);
+
+        // Calculate the total quantity
+        $totalQuantity = 0;
+        foreach ($collection as $item) {
+            $totalQuantity += $item['quantity'];
+        }
+        return response()->json(['message' => 'Collection updated', 'collectionCount' => $totalQuantity], 200);
+    }
+
+    public function removeItem(Request $request)
+    {
+        if($request->id) {
+            $collection = session()->get('collection');
+            if(isset($collection[$request->id])) {
+                unset($collection[$request->id]);
+                session()->put('collection', $collection);
+            }
+            session()->flash('success', 'Product successfully removed.');
+        }
+    }
+
+    
 }
 
