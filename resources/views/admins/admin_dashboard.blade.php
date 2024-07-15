@@ -7,21 +7,17 @@
         </h2>
     </x-slot>
 
-
-    
     <div class="flex">
         <!-- Side Navigation Bar -->
         @include('profile.partials.sidebar')
 
         <!-- Main Content -->
-        <div class="w-3/4 p-6">
+        <div class="flex-1 p-6">
             <!-- Place your dashboard content here -->
             <div class="bg-white rounded shadow p-4">
                 <h3 class="text-lg font-semibold mb-4">Dashboard Content</h3>
                 <p>Welcome to the Admin Dashboard!</p>
-   
-   <!-- Add your dashboard content here -->             
-    <div class="flex">
-        
+            </div>
+        </div>
     </div>
 </x-app-layout>
