@@ -61,7 +61,7 @@
                 </ul>
             </div>
         @endif
-        <form method="post" action="{{ route('admin.employee.store') }}">
+        <form method="post" action="{{ route('admin.employee.store') }}" enctype="multipart/form-data">
             @csrf
             @method('post')
 
@@ -118,24 +118,17 @@
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="image" class="form-label">Photo </label>
-                    <!--<div class="avatar-upload">-->
-                        
-                            <input type="file" class="form-control" name="image"/>
-                          <!--  <label for="imageUpload"></label>-->
-                        
-                        <!--<div class="avatar-preview">
-                            <div id="imagePreview" style="@if (isset($edit->id) && $edit->photo != '') background-image:url('{{ url('/') }}/uploads/{{ $edit->photo }}'); @else background-image: url('{{ url('/img/avatar.png') }}'); @endif"></div>
-                        </div>
-                    </div>-->
-                    
-                    @error('photo')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
+    <div class="form-group">
+                <label for="image">Employee Image:</label>
+                <input type="file" class="form-control" name="image">
+               
+                @error('photo')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
+    </div>
+</div>
+
 
             <div>
                 <button type="submit" class="btn btn-primary">
