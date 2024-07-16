@@ -53,6 +53,7 @@
     
     <div class="container mt-5">
         <h1 class="mb-4">Product</h1>
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary mb-3">Back</a>
         @if (session()->has('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

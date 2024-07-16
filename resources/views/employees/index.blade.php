@@ -44,6 +44,9 @@
     <div class="header">
         <h1 class="mb-4">Employee Details</h1>
     </div>
+    <div>
+    <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary mb-3">Back </a>
+    </div>
     <div class="container">
         @if(session()->has('success'))
             <div class="alert alert-success">
