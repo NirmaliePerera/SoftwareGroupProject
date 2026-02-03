@@ -1,3 +1,4 @@
+
 @extends('layouts.invoice_app')
 
 @section('content')
@@ -22,7 +23,7 @@
                     <td>{{ $invoice->quantity }}</td>
                     <td>{{ $invoice->total_amount }}</td>
                     <td>{{ $invoice->payment_amount }}</td>
-                    <td>{{ $invoices->balance }}</td>
+                    <td>{{ $invoice->balance }}</td>
                     <td>
                         <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning btn-sm">Edit</a>
                         <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline-block;">

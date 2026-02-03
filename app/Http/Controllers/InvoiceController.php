@@ -22,9 +22,15 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity' => 'required|numeric|min:0', 
+            'payment_amount' => 'required|numeric|min:0', 
+        ]);
+
         $product = Product::findOrFail($request->product_id);
         $totalAmount = $product->initial_price * $request->quantity;
-        $balance = $totalAmount - $request->payment_amount;
+        $balance = $request->payment_amount - $totalAmount;
 
         Invoice::create([
             'product_id' => $request->product_id,
@@ -49,7 +55,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::findOrFail($id);
         $product = Product::findOrFail($request->product_id);
         $totalAmount = $product->initial_price * $request->quantity;
-        $balance = $totalAmount - $request->payment_amount;
+        $balance = $request->payment_amount - $totalAmount;
 
         $invoice->update([
             'product_id' => $request->product_id,

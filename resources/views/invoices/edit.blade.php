@@ -1,3 +1,4 @@
+<!-- resources/views/bills/edit.blade.php -->
 @extends('layouts.invoice_app')
 
 @section('content')
@@ -10,7 +11,7 @@
             <label for="product_id">Product</label>
             <select name="product_id" id="product_id" class="form-control">
                 @foreach($products as $product)
-                    <option value="{{ $product->id }}" {{ $product->id == $invoice->product_id ? 'selected' : '' }}>{{ $product->name }} - LKR{{ $product->initial_price }}</option>
+                    <option value="{{ $product->id }}" {{ $product->id == $invoice->product_id ? 'selected' : '' }}>{{ $product->name }} - ${{ $product->initial_price }}</option>
                 @endforeach
             </select>
         </div>
