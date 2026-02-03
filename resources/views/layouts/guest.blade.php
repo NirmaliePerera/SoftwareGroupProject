@@ -11,12 +11,15 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <style>
+            
             .shirona-logo {
                 width: 30%; /* Adjust the width as needed */
                 max-width: 100px; /* Maximum width to ensure it doesn't get too large */
                 height: auto; /* Maintain aspect ratio */
                 margin-bottom: 10px;
             }
+
+            
         </style>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

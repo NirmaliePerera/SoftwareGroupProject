@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voice Bot</title>
     <style>
-        body {
+       body {
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f3e5f5; /* light purple background */
             color: #ffffff; /* white text */
+
         }
         #chat {
             border: 1px solid #d1c4e9; /* light purple border */
             padding: 10px;
             width: 50%;
-            height: 100px;
+            height: 200px;
             overflow-y: scroll;
             margin-bottom: 20px;
             background-color: #ffffff; /* white background for chat area */
@@ -38,7 +39,7 @@
             color: #ffffff; /* white text for bot messages */
         }
         #inputBox {
-            width: calc(50% - 40px);
+            width: calc(50% - 60px);
             margin-right: 10px;
             padding: 5px;
             border: 1px solid #d1c4e9; /* light purple border */
@@ -52,7 +53,7 @@
             color: #9575cd; /* purple color */
         }
         #sendButton {
-            background-color: #9575cd; /* purple background */
+            background-color: #6a1b9a; /* purple background */
             color: #ffffff; /* white text */
             border: none;
             padding: 5px 10px;

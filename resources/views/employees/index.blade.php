@@ -44,6 +44,9 @@
     <div class="header">
         <h1 class="mb-4">Employee Details</h1>
     </div>
+    <div>
+    <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary mb-3">Back </a>
+    </div>
     <div class="container">
         @if(session()->has('success'))
             <div class="alert alert-success">
@@ -84,7 +87,9 @@
                             <td>{{$employee->address}}</td>
                             <td>{{$employee->email}}</td>
                             <td>{{$employee->joined_date}}</td>
-                            <td>{{$employee->image}}</td>
+                            <td>            
+                            <img src="{{ asset($employee->image) }}" style="width: 80px; height:100px;" alt="Img" />
+                        </td>
                             <td>                           <!--This $employee is passed to this 'employee' from route {employee},, "['employee' => $employee]" array -->
                                 <a href="{{route('admin.employee.edit', ['employee' => $employee])}}" class="btn btn-edit btn-sm">Edit</a>
                             </td><!-- loop through each iteam and put edit link-->

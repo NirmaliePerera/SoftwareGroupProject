@@ -14,7 +14,10 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            background-color: #f8f9fa;
+            background-image: url('{{ asset('img/background.jpg') }}');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
         }
         .welcome-image {
             width: 50%; /* Adjust the width as needed */

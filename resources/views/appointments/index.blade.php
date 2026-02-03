@@ -10,7 +10,9 @@
 
     <div class="container mt-5">
         <h1 class="text-primary" style="font-family: verdana; font-size: 200%;">Appointment Details</h1>
-
+    <div>
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary mb-3">Back</a>
+    </div>
         <div class="container mt-3">
             <table class="table table-striped table-bordered">
                 <thead class="thead-dark">

@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('color');
             $table->string('size');
 <<<<<<< Updated upstream:database/migrations/2024_05_26_035830_create_products_table.php
-            $table->integer('quantity');
+            $table->integer('quantity')->default(0);
             $table->decimal('initial_price');
+            $table->decimal('last_rented_price')->default(0.00);
             $table->decimal('last_rented_price');
 =======
             $table->integer('quantity')->default(0);
@@ -39,5 +40,5 @@ return new class extends Migration
         Schema::dropIfExists('products');
     }
 
-    
+
 };

@@ -61,7 +61,7 @@
             </ul>
         </div>
     @endif
-    <form method="post" action="{{ route('admin.employee.update', ['employee' => $employee]) }}">
+    <form method="post" action="{{ route('admin.employee.update', ['employee' => $employee]) }}" enctype="multipart/form-data">
         @csrf
         @method('put')
 
@@ -114,23 +114,16 @@
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="image" class="form-label">Photo </label>
-                <div class="avatar-upload">
-                    <div>
-                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" onchange="previewImage(this)"/>
-                        <label for="imageUpload"></label>
-                    </div>
-                    <div class="avatar-preview">
-                        <div id="imagePreview" style="@if (isset($edit->id) && $edit->photo != '') background-image:url('{{ url('/') }}/uploads/{{ $edit->photo }}')@else background-image: url('{{ url('/img/avatar.png') }}') @endif"></div>
-                    </div>
-                </div>
-                @error('photo')
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="image" class="form-label">Photo </label>
+                    <input type="file" name="image" class="form-control" />
+                    
+                    @error('photo')
                     <div class="text-danger">{{ $message }}</div>
-                @enderror
+                    @enderror
+                </div>
             </div>
-        </div>
         
         <div>
             <p>Check all the details before saving changes.</p>

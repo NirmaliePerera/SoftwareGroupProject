@@ -26,7 +26,7 @@ class BotController extends Controller
             'discount' => 'We currently have a 10% discount on selected items. Would you like to know more about these items?',
             'return policy' => 'Our return policy allows returns within 30 days with a receipt. Would you like more details?',
             'store hours' => 'We are open from Monday to Saturday, 10 AM to 7 PM. Are you planning to visit us soon?',
-            'location' => 'We are located at 123 Bridal Lane, Wedding Town. Would you like directions?',
+            'location' => 'We are located at ,465 Puttalam - Colombo Rd, Negombo. Would you like directions?',
             'accessories' => 'We offer a variety of bridal accessories including tiaras, jewelry, and shoes. What are you looking for?',
             'fittings' => 'We offer fittings by appointment. Would you like to schedule one?',
             'custom dresses' => 'We do offer custom dress services. Can you tell me more about what you have in mind?',
